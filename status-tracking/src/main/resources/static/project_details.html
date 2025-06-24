@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Details</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .details {
+      margin-bottom: 30px;
+    }
+
+    .details p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .defect-btn {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .defect-btn:hover {
+      background: #27ae60;
+    }
+
+    #result {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .output-img {
+      max-width: 100%;
+      margin-top: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Project Details</h2>
+    <div class="details" id="projectDetails">
+      <!-- Project data will load here -->
+    </div>
+    <button class="defect-btn" onclick="startDefectDetection()">Start Defect Detection</button>
+
+    <div id="result">
+      <!-- Defect detection result will show here -->
+    </div>
+  </div>
+
+  <script>
+    const trpNumber = new URLSearchParams(window.location.search).get('trpNumber');
+    const springApiUrl = `http://localhost:8080/api/projects/${trpNumber}`;
+    const fastapiUrl = `http://localhost:8000/detect_project`; // adjust if your FastAPI runs elsewhere
+
+    function loadProjectDetails() {
+      fetch(springApiUrl, { mode: 'cors' })
+        .then(response => {
+          if (!response.ok) throw new Error('Project not found');
+          return response.json();
+        })
+        .then(project => {
+          const container = document.getElementById('projectDetails');
+          container.innerHTML = `
+            <p><strong>TRP Number:</strong> ${project.trpNumber}</p>
+            <p><strong>Project Code:</strong> ${project.projectCode}</p>
+            <p><strong>Part Name:</strong> ${project.partName}</p>
+            <p><strong>Revision:</strong> ${project.revision}</p>
+            <p><strong>Priority:</strong> ${project.priority}</p>
+            <p><strong>Type:</strong> ${project.type}</p>
+            <p><strong>Status:</strong> ${project.status}</p>
+          `;
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Could not load project details.");
+        });
+    }
+
+    function startDefectDetection() {
+      fetch(fastapiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trpNumber })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Detection failed');
+        return response.json();
+      })
+      .then(data => {
+        const result = document.getElementById("result");
+        result.innerHTML = `
+          <h3>Defect Detection Result:</h3>
+          <p>${data.message || 'Detection completed.'}</p>
+          ${data.imagePath ? `<img src="${data.imagePath}" alt="Detection Output" class="output-img" />` : ''}
+        `;
+      })
+      .catch(err => {
+        console.error("Error during detection:", err);
+        alert("Defect detection failed.");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadProjectDetails);
+  </script>
+</body>
+</html>

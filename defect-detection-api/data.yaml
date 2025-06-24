@@ -1,0 +1,11 @@
+names:
+- Crack
+- Cutting
+- Inner-Stamped
+- NON_DEFECTIVE
+- Outer-Stamped
+nc: 5
+path: /kaggle/input/rubber-gasket-dataset/yolov8_dataset
+test: test/images
+train: train/images
+val: valid/images

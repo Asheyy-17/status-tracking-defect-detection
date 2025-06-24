@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Production Tracking</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .production-tracking-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 1000px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-align: center;
+    }
+    label {
+      font-weight: 800;
+      color: #34495e;
+      display: block;
+      margin-bottom: 5px;
+    }
+    select, input[type="date"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: border-color 0.3s ease;
+    }
+    select:focus, input[type="date"]:focus, textarea:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .row .stage {
+      flex: 1;
+    }
+    .row .stage h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .stage label{
+      font-weight: 650;
+    }
+    .sub-stage-row {
+      display: flex;
+      gap: 10px;
+    }
+    .sub-stage-row select{
+      width: 270px;
+    }
+    .sub-stage {
+      flex: 1;
+    }
+    .sub-stage h4 {
+      color: #2c3e50;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 750;
+      font-size:17px;
+    }
+    .sub-stage-row h5{
+      font-weight:730;
+    }
+    textarea {
+      resize: vertical;
+      height: 80px;
+    }
+    .save-btn {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+    .save-btn:hover {
+      background: linear-gradient(135deg, #2980b9, #3498db);
+    }
+
+    .sub-category {
+      margin-bottom: 10px;
+    }
+
+    .sub-category h5 {
+      color: #2c3e50;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    h3{
+      font-weight: bolder;
+    }
+
+    h4{
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="production-tracking-container">
+    <h2>Production Tracking</h2>
+    <div class="project-selector">
+      <label for="trp-number">Select TRP Number:</label>
+      <select id="trp-number">
+        <option value="TRP001">TRP001</option>
+        <option value="TRP002">TRP002</option>
+      </select>
+    </div>
+
+    <!-- First Row: Lab Compound Code, Quality Shrinkage, Design -->
+    <div class="row">
+      <div class="stage">
+        <h3>Lab Compound Code</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+      <div class="stage">
+        <h3>Quality Shrinkage</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+      <div class="stage">
+        <h3>Design</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Second Row: Mold Manufacturing with Subcategories -->
+    <div class="row">
+      <div class="stage">
+        <h3>Mold Manufacturing</h3>
+        <div class="sub-stage-row">
+          <!-- Out Source -->
+          <div class="sub-stage">
+            <h4>Out Source</h4>
+            <div class="sub-category">
+              <h5>Material Purchase</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+            <div class="sub-category">
+              <h5>Pre Machining</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+            <div class="sub-category">
+              <h5>Grinding</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+          </div>
+          <!-- In House -->
+          <div class="sub-stage">
+            <h4>In House</h4>
+            <div class="sub-category">
+              <h5>VMC</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+            <div class="sub-category">
+              <h5>Turning/VTL</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+          </div>
+          <!-- Out Sourcing -->
+          <div class="sub-stage">
+            <h4>Out Sourcing</h4>
+            <div class="sub-category">
+              <h5>Sparking/Wire</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+            <div class="sub-category">
+              <h5>Heat Treatment</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+            <div class="sub-category">
+              <h5>Assembly</h5>
+              <select>
+                <option value="Rework">Rework</option>
+                <option value="Completed">Completed</option>
+                <option value="Waiting for Process">Waiting for Process</option>
+                <option value="In-process">In-process</option>
+                <option value="Complaint">Complaint</option>
+                <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+                <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+                <option value="Not Applicable">Not Applicable</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+          
+
+    <!-- Third Row: Mold Inspection NPD, Production, Deflashing, Part Inspection Quality -->
+    <div class="row">
+      <div class="stage">
+        <h3>Mold Inspection NPD</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+      <div class="stage">
+        <h3>Production</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+      <div class="stage">
+        <h3>Deflashing</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+      <div class="stage">
+        <h3>Part Inspection Quality</h3>
+        <select>
+          <option value="Rework">Rework</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting for Process">Waiting for Process</option>
+          <option value="In-process">In-process</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Waiting for Form Tools">Waiting for Form Tools</option>
+          <option value="Waiting for Cutting Tools">Waiting for Cutting Tools</option>
+          <option value="Not Applicable">Not Applicable</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row">
+      <div class="stage">
+        <h3>Additional Information</h3>
+        <label for="target-date">Target Date:</label>
+        <input type="date" id="target-date">
+        <label for="completion-date">Completion Date:</label>
+        <input type="date" id="completion-date">
+        <label for="remarks">Remarks:</label>
+        <textarea id="remarks" placeholder="Enter remarks..."></textarea>
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <button class="save-btn" onclick="saveData()">Save Data</button>
+  </div>
+
+  <script>
+    function saveData() {
+      alert("Data saved successfully!");
+    }
+  </script>
+</body>
+</html>

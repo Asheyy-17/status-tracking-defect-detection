@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .project-management-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-size: 28px;
+      text-align: center;
+    }
+    .add-project-btn {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background 0.3s ease;
+    }
+    .add-project-btn:hover {
+      background: linear-gradient(135deg, #2980b9, #3498db);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    .edit-btn, .delete-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .edit-btn {
+      background: #f1c40f;
+      color: #000;
+    }
+    .edit-btn:hover {
+      background: #f39c12;
+    }
+    .delete-btn {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="project-management-container">
+    <h2>Project Management</h2>
+    <button class="add-project-btn" onclick="openAddProjectModal()">Add Project</button>
+    <table>
+      <thead>
+        <tr>
+          <th>TRP Number</th>
+          <th>Project Code</th>
+          <th>Part Name</th>
+          <th>Revision</th>
+          <th>Priority</th>
+          <th>Project Type</th>
+          <th>Project Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="projectTableBody">
+        <!-- Project rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Base URL for your backend API
+    const apiBaseUrl = "http://localhost:8080/api/projects";
+
+    // Fetch and display projects
+    function loadProjects() {
+      fetch(apiBaseUrl, {mode : "cors"})
+        .then(response => {
+          if (!response.ok) throw new Error(`Server error: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          if (!Array.isArray(data)) throw new Error("Received data is not an array");
+          const tableBody = document.getElementById("projectTableBody");
+          tableBody.innerHTML = "";
+          data.forEach(project => {
+            const row = `
+              <tr>
+                <td>${project.trpNumber}</td>
+                <td>${project.projectCode}</td>
+                <td>${project.partName}</td>
+                <td>${project.revision}</td>
+                <td>${project.priority}</td>
+                <td>${project.type || "Not Specified"}</td>
+                <td>${project.status || "Unknown"}</td>
+                <td>
+                  <button class="edit-btn" onclick="editProject('${project.trpNumber}')">Edit</button>
+                  <button class="delete-btn" onclick="deleteProject('${project.trpNumber}')">Delete</button>
+                </td>
+              </tr>
+            `;
+            tableBody.innerHTML += row;
+          });
+        })
+        .catch(error => {
+          console.error("Error loading projects:", error);
+          alert("Failed to load projects. Check the console for details.");
+        });
+    }
+
+    // Add Project using TRP number as unique identifier
+    function openAddProjectModal() {
+    const trpNumber = prompt("Enter TRP Number:");
+    const projectCode = prompt("Enter Project Code:");
+    const partName = prompt("Enter Part Name:");
+    const revision = prompt("Enter Revision:");
+    const priority = prompt("Enter Priority (LOW/MEDIUM/HIGH):").toUpperCase();
+    const projectType = prompt("Enter Project Type (DOMESTIC/EXPORT):").toUpperCase();
+    const status = prompt("Enter the Project Status (NOT_STARTED/IN_PROGRESS/COMPLETED/DELAYED):")
+    .toUpperCase();
+
+    if (!trpNumber || !projectCode || !partName || !revision || !priority || !projectType || !status) {
+        alert("All fields are required!");
+        return;
+    }
+
+    const newProject = { 
+        trpNumber, 
+        projectCode, 
+        partName, 
+        revision, 
+        priority, 
+        type: projectType, // ✅ FIX: Ensure correct field name ("type" instead of "projectType")
+        status
+    };
+
+    fetch("http://localhost:8080/api/projects", {
+        method: "POST",
+        mode : "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProject)
+    })
+    .then(response => {
+        if (!response.ok) return response.text().then(text => { throw new Error(text) }); 
+        return response.json();
+    })
+    .then(() => {
+        alert("Project added successfully!");
+        loadProjects(); // ✅ Reload the table
+    })
+    .catch(error => {
+        console.error("Error adding project:", error);
+        alert(`Failed to add project: ${error.message}`);
+    });
+}
+
+
+    // Edit Project using TRP number as the unique identifier
+    function editProject(trpNumber) {
+      // Fetch the project details using TRP number
+      fetch(`${apiBaseUrl}/${trpNumber}`,{mode : "cors"})
+        .then(response => {
+          if (!response.ok) throw new Error(`Server error: ${response.status}`);
+          return response.json();
+        })
+        .then(project => {
+          if (!project) {
+            alert("Project not found!");
+            return;
+          }
+          // Pre-fill prompts with current values
+          const newProjectCode = prompt("Enter new Project Code:", project.projectCode);
+          const newPartName = prompt("Enter new Part Name:", project.partName);
+          const newRevision = prompt("Enter new Revision:", project.revision);
+          const newPriority = prompt("Enter new Priority (HIGH/MEDIUM/LOW):", project.priority).toUpperCase();
+          const newProjectType = prompt("Enter new Project Type (Domestic/Export):", project.projectType);
+          const newStatus = prompt("Enter the Project Status (NOT_STARTED/IN_PROGRESS/COMPLETED/DELAYED):", project.status);
+
+          if (newProjectCode && newPartName && newRevision && newPriority && newProjectType) {
+            const updatedProject = { 
+              projectCode: newProjectCode, 
+              partName: newPartName, 
+              revision: newRevision, 
+              priority: newPriority, 
+              projectType: newProjectType,
+              status: newStatus
+            };
+
+            // Use TRP number directly in the URL
+            fetch(`${apiBaseUrl}/${trpNumber}`, {
+              method: "PUT",
+              mode : "cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(updatedProject)
+            })
+            .then(response => {
+              if (!response.ok) throw new Error(`Server error: ${response.status}`);
+              return response.json();
+            })
+            .then(() => {
+              alert(`Project ${trpNumber} updated successfully!`);
+              loadProjects();
+            })
+            .catch(error => console.error("Error updating project:", error));
+          } else {
+            alert("All fields are required!");
+          }
+        })
+        .catch(error => console.error("Error fetching project details:", error));
+    }
+
+    // Delete Project using TRP number as the unique identifier
+    function deleteProject(trpNumber) {
+      if (confirm(`Are you sure you want to delete project ${trpNumber}?`)) {
+        fetch(`${apiBaseUrl}/${trpNumber}`, { method: "DELETE", mode : "cors" })
+          .then(response => {
+            if (!response.ok) throw new Error(`Server error: ${response.status}`);
+            alert(`Project ${trpNumber} deleted successfully!`);
+            loadProjects();
+          })
+          .catch(error => console.error("Error deleting project:", error));
+      }
+    }
+
+    // Load Projects on Page Load
+    document.addEventListener("DOMContentLoaded", loadProjects);
+  </script>
+</body>
+</html>

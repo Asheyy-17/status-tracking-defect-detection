@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .home-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px;
+      text-align: center;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+    .main-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .link-card {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      flex: 1;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      max-width: 220px;
+    }
+    .link-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .defect-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+    .defect-section h3 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    .defect-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .defect-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="home-container">
+    <h2>Status Tracking System</h2>
+    <br><br>
+    <div class="main-links">
+      <a href="user_management_page.html" class="link-card">User Management</a>
+      <a href="project_management.html" class="link-card">Project Management</a>
+      <a href="dashboard_page.html" class="link-card">Dashboard</a>
+      <a href="production_tracking_page.html" class="link-card">Production Tracking</a>
+      <a href="defect_detection.html" class="link-card">Defect Detection</a>
+    </div>
+  </div>
+</body>
+</html>
