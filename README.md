@@ -3,8 +3,11 @@
 **Transforming Quality Monitoring Into Actionable Insights**
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Asheyy-17/status-tracking-defect-detection)
-![HTML](https://img.shields.io/badge/html-50.4%25-blue)
-![Languages](https://img.shields.io/badge/languages-4-lightgrey)
+![Java](https://img.shields.io/badge/Backend-Java-blue?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Framework-SpringBoot-brightgreen?logo=spring)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi)
+![YOLOv8](https://img.shields.io/badge/ML-YOLOv8-purple?logo=python)
+![MySQL](https://img.shields.io/badge/Database-MySQL-00758F?logo=mysql)
 
 ---
 
