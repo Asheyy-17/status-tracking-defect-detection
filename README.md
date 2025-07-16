@@ -2,20 +2,17 @@
 
 **Transforming Quality Monitoring Into Actionable Insights**
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Asheyy-17/status-tracking-defect-detection)
-![Java](https://img.shields.io/badge/Backend-Java-blue?logo=openjdk)
-![Spring Boot](https://img.shields.io/badge/Framework-SpringBoot-brightgreen?logo=spring)
-![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi)
-![YOLOv8](https://img.shields.io/badge/ML-YOLOv8-purple?logo=python)
-![MySQL](https://img.shields.io/badge/Database-MySQL-00758F?logo=mysql)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/Asheyy-17/status-tracking-defect-detection)
 
 ---
 
 ## Built With:
 
-![XML](https://img.shields.io/badge/XML-blue?logo=xml)
-![Python](https://img.shields.io/badge/Python-blue?logo=python)
-![YAML](https://img.shields.io/badge/YAML-red?logo=yaml)
+![Java](https://img.shields.io/badge/Backend-Java-blue?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Framework-SpringBoot-brightgreen?logo=spring)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi)
+![YOLOv8](https://img.shields.io/badge/ML-YOLOv8-purple?logo=python)
+![MySQL](https://img.shields.io/badge/Database-MySQL-00758F?logo=mysql)
 
 ---
 
