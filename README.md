@@ -2,7 +2,7 @@
 
 **Transforming Quality Monitoring Into Actionable Insights**
 
-![GitHub Last Commit](https://img.shields.io/github/last-commit/Asheyy-17/status-tracking-defect-detection)
+![GitHub last commit](https://img.shields.io/github/Last-Commit/Asheyy-17/status-tracking-defect-detection)
 
 ---
 
